@@ -12,10 +12,10 @@ def select_directory():
 def read_files():
     try:
         log_text.delete("1.0", "end")
-        log_file_path = os.path.join(directory, "logs", "log.txt")
+        log_file_path = os.path.join(directory, "logs", "UnityFS_Log.txt")
         os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
-        with open(log_file_path, "a") as log_file:
-            log_file.write(f"\n\n\n{datetime.datetime.now()}\n")
+        with open(log_file_path, "w") as log_file:
+            log_file.write(f"{datetime.datetime.now()}\n")
             for file in os.listdir(directory):
                 f = os.path.join(directory, file)
                 if os.path.isfile(f):
@@ -29,14 +29,14 @@ def read_files():
                             i += 1
                         if i == len(b):
                             log_text.insert("end", f"UnityFS not found in file {file}\n")
-                            log_file.write(f"{file}, UnityFS not found\n")
+                            log_file.write(f"{file},UnityFS not found\n")
                         else:
                             output_file_path = os.path.join(directory, "Read", file+'.read')
                             os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
                             with open(output_file_path, "wb") as output_file:
                                 output_file.write(c)
                             log_text.insert("end", f"{file} read successfully\n")
-                            log_file.write(f"{file}, Success\n")
+                            log_file.write(f"{file},Success\n")
         messagebox.showinfo("Success", "All files have been processed successfully!")
     except Exception as e:
         messagebox.showerror("Error", str(e))
